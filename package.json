@@ -1,0 +1,33 @@
+{
+  "name": "threejs-game-demo",
+  "version": "1.0.0",
+  "description": "Three.js game demo",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Arfly/threejs-game-demo.git"
+  },
+  "keywords": [
+    "three.js",
+    "game"
+  ],
+  "author": "fei.han",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Arfly/threejs-game-demo/issues"
+  },
+  "homepage": "https://github.com/Arfly/threejs-game-demo#readme",
+  "devDependencies": {
+    "typescript": "^4.9.4",
+    "vite": "^4.0.4"
+  },
+  "dependencies": {
+    "@types/three": "^0.148.1",
+    "three": "^0.149.0"
+  }
+}
