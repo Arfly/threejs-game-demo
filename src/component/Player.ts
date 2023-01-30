@@ -1,22 +1,25 @@
-import { Vector3 } from 'three'
+import { Box3, Sphere, Vector3 } from 'three'
 import { globals, models } from '../global'
 import { inputManager } from '../manager/InputManager'
 import { GameObject } from '../object/GameObject'
 import { Component } from './Component'
 import { SkinInstance } from './SkinInstance'
 
-const kForward = new Vector3(0, 0, 1)
+export const kForward = new Vector3(0, 0, 1)
 
 export class Player extends Component {
   skinInstance: SkinInstance
   turnSpeed: number
   offscreenTimer: number
   maxTimeOffScreen = 3
+  playerRadius: number
 
   constructor(gameObject: GameObject) {
     super(gameObject)
     const model = models.knight.gltf
     this.skinInstance = gameObject.addComponent(SkinInstance, model)
+    const box = new Box3().setFromObject(model!.scene)
+    this.playerRadius = box.getSize(new Vector3()).length() / 2
     this.skinInstance.setAnimation('Run')
     const { moveSpeed } = globals
     this.turnSpeed = moveSpeed ? moveSpeed / 10 : 0

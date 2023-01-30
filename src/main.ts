@@ -66,7 +66,9 @@ manager.onLoad = () => {
   globals.cameraInfo = cameraInfo
 
   const gameObject = gameObjectManager.createGameObject(scene, 'player')
-  gameObject.addComponent(Player)
+  const player = gameObject.addComponent(Player)
+  globals.player = player
+  globals.congaLine.push(player)
 
   const animalModelNames = [
     'pig',
@@ -85,26 +87,12 @@ manager.onLoad = () => {
   })
 }
 
-const mixers: AnimationMixer[] = []
 interface MixerInfo {
   mixer: AnimationMixer
   actions: AnimationAction[]
   actionNdx: number
 }
 const mixerInfos: MixerInfo[] = []
-
-function playNextAction(mixerInfo: MixerInfo) {
-  const { actions, actionNdx } = mixerInfo
-  const nextActionNdx = (actionNdx + 1) % actions.length
-  mixerInfo.actionNdx = nextActionNdx
-  actions.forEach((action, ndx) => {
-    const enabled = ndx === nextActionNdx
-    action.enabled = enabled
-    if (enabled) {
-      action.play()
-    }
-  })
-}
 
 function prepModelsAndAnimations() {
   Object.values(models).forEach(model => {
@@ -121,11 +109,6 @@ function prepModelsAndAnimations() {
 
   Object.values(models).forEach((model, ndx) => {
     const clonedScene = SkeletonUtils.clone(model.gltf!.scene)
-    // const root = new Object3D()
-    // root.add(clonedScene)
-    // scene.add(root)
-    // root.position.x = (ndx - 3) * 3
-
     if (model.animations) {
       const mixer = new AnimationMixer(clonedScene)
       const actions = Object.values(model.animations).map(clip => {
@@ -137,7 +120,6 @@ function prepModelsAndAnimations() {
         actionNdx: -1
       }
       mixerInfos.push(mixerInfo)
-      // playNextAction(mixerInfo)
     }
   })
 }
@@ -187,10 +169,3 @@ function render(now: DOMHighResTimeStamp) {
 }
 
 requestAnimationFrame(render)
-
-window.addEventListener('keydown', e => {
-  const mixerInfo = mixerInfos[e.keyCode - 49]
-  if (mixerInfo) {
-    playNextAction(mixerInfo)
-  }
-})

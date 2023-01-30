@@ -1,7 +1,7 @@
 interface State {
-  exit: () => void
-  enter: () => void
-  update: () => void
+  exit?: () => void
+  enter?: () => void
+  update?: () => void
 }
 
 interface States {

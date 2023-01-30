@@ -36,6 +36,8 @@ export class SkinInstance extends Component {
   }
 
   update() {
-    this.mixer.update(globals.deltaTime)
+    if (globals.deltaTime !== undefined) {
+      this.mixer.update(globals.deltaTime)
+    }
   }
 }

@@ -1,18 +1,24 @@
 import { AnimationClip, OrthographicCamera, PerspectiveCamera } from 'three'
 import { GLTF } from 'three/examples/jsm/loaders/GLTFLoader'
 import { CameraInfo } from '../component/CameraInfo'
+import { Player } from '../component/Player'
+import { GameObject } from '../object/GameObject'
 
 interface Global {
   time: number
   deltaTime: number
   moveSpeed: number
-  camera: PerspectiveCamera
-  cameraInfo: CameraInfo
+  camera?: PerspectiveCamera
+  cameraInfo?: CameraInfo
+  player?: Player
+  playerRadius?: number
+  congaLine: GameObject[]
 }
-export const globals: Partial<Global> = {
+export const globals: Global = {
   time: 0,
   deltaTime: 0,
-  moveSpeed: 16
+  moveSpeed: 16,
+  congaLine: []
 }
 
 export const models: {
